@@ -5,9 +5,51 @@ import java.util.stream.Stream;
 public class Main {
     public static void main(String args[]) {
 //        System.out.println(fibo(5));
-        fibo2(5);
+//        fibo2(5);
+        deleteArr("abbcbbcd");
     }
 
+    // 테스트 코드
+    private static void deleteArr(String s) {
+        String[] tmpSt = s.split("");
+        List<String> list1 = new ArrayList<>(Arrays.asList(tmpSt));
+        Map<String, Integer> map1 = new HashMap();
+        List<String> list2 = new ArrayList<>();
+
+        for(int i=0; i<list1.size(); i++){
+            if(map1.containsKey(list1.get(i))){
+                String tmp = list1.get(i);
+                int cnt = map1.get(tmp);
+                cnt++;
+                map1.put(list1.get(i), cnt);
+            }else{
+                map1.put(list1.get(i), 1);
+            }
+        }
+        System.out.println(map1);
+
+
+        int idx = 0;
+        // b c
+        // abcbcd
+        for (String key:map1.keySet()) {
+            System.out.println(key);
+            if(map1.get(key) > 1){
+                for(int i=0; i<list1.size()-1; i++){
+                    if(String.valueOf(s.charAt(i)).equals(key)){
+                        if(list2.contains(key)){
+                            list1.remove(i);
+                            i--;
+                        }else{
+                            list2.add(key);
+                        }
+                    }
+                }
+            }
+            idx++;
+        }
+        System.out.println(list1);
+    }
     // 누승수열
     // input = 4 output = 4! + 3! + 2! + 1!
     // (4*3*2*1) + (3*2*1) + (2*1) + (1*1)
